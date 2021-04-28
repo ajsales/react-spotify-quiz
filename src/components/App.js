@@ -10,7 +10,7 @@ import { io } from "socket.io-client";
 export default function App() {
 
 	const server = process.env.NODE_ENV === 'production'
-					? "https://react-spotify-quiz.herokuapp.com"
+					? "https://react-spotify-quiz-back-end.herokuapp.com"
 					: "http://localhost:8081";
 	const [ socket, setSocket ] = useState(io(server));
 

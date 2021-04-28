@@ -9,7 +9,10 @@ import { io } from "socket.io-client";
 
 export default function App() {
 
-	const [ socket, setSocket ] = useState(io());
+	const server = process.env.NODE_ENV === 'production'
+					? "https://react-spotify-quiz.herokuapp.com"
+					: "http://localhost:8081";
+	const [ socket, setSocket ] = useState(io(server));
 
 	const handlePlayer = (player) => {
 		socket.emit('player', player);

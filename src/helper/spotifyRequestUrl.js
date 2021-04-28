@@ -2,7 +2,7 @@ let redirect_uri;
 if (window.location.host === 'localhost:3000') {
 	redirect_uri = 'http://localhost:3000/callback';
 } else {
-	redirect_uri = '';
+	redirect_uri = 'https://react-spotify-quiz.herokuapp.com/callback';
 }
 
 const params = {

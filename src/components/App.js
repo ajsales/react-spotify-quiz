@@ -13,7 +13,8 @@ export default function App() {
 					? "https://react-spotify-quiz-back-end.herokuapp.com"
 					: "http://localhost:8081";
 	const [ socket, setSocket ] = useState(io(server, {
-		withCredentials: true
+		withCredentials: true,
+		transports: ['websocket']
 	}));
 
 	const handlePlayer = (player) => {

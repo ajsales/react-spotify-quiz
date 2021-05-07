@@ -2,35 +2,28 @@ import React, { useState } from 'react';
 import { Router } from '@reach/router';
 
 import Home from './Home';
+import Rooms from './Rooms';
 import Game from './Game';
 import Callback from './Callback';
 
-import { io } from "socket.io-client";
+import { SocketContext, socket } from '../context/socket';
 
 export default function App() {
 
-	const server = process.env.NODE_ENV === 'production'
-					? "https://react-spotify-quiz-back-end.herokuapp.com"
-					: "http://localhost:8081";
-	const [ socket, setSocket ] = useState(io(server, {
-		withCredentials: true
-	}));
-
-	const handlePlayer = (player) => {
-		socket.emit('player', player);
-	}
+	const [ playerId, setPlayerId ] = useState('');
+	const handleLogin = (id) => {
+		setPlayerId(id);
+	};
 
 	return (
-		<div>
+		<SocketContext.Provider value={socket}>
 			<Router>
 				<Home path="/" />
-				<Game path="game" />
+				<Rooms path="rooms" playerId={playerId} />
+				<Game path="game/:gameId" playerId={playerId} />
 
-				<Callback
-					path="callback"
-					onPlayer={handlePlayer}
-				/>
+				<Callback path="callback" onLogin={handleLogin} />
 			</Router>
-		</div>
+		</SocketContext.Provider>
 	);
 }

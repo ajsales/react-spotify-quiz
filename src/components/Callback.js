@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { navigate } from '@reach/router';
+import { SocketContext } from '../context/socket';
 
 import SpotifyWebApi from 'spotify-web-api-js';
 
 export default function Callback(props) {
-	const [ spotify ] = useState(new SpotifyWebApi());
 	const [ isPlayerLoaded, setIsPlayerLoaded ] = useState(false);
+	const socket = useContext(SocketContext);
+	const { onLogin } = props;
 
 	useEffect(() => {
+		const spotify = new SpotifyWebApi();
 		const pruneSongData = (song) => {
 			let artists = song.artists.map(artist => artist.name);
 			artists = artists.filter(artist => !song.name.includes(artist));
@@ -34,10 +37,11 @@ export default function Callback(props) {
 			let response;
 			response = await spotify.getMe();
 			player.name = response.display_name;
+			player.id = response.id;
 			if (response.images) {
-				player.image = response.images[0].url;
+				player.img = response.images[0].url;
 			} else {
-				player.image = 'https://img.icons8.com/clouds/200/000000/spotify.png';
+				player.img = 'https://img.icons8.com/clouds/200/000000/spotify.png';
 			}
 
 			player.songs = {};
@@ -62,9 +66,23 @@ export default function Callback(props) {
 				return pruneArtistData({...artist, songs: response.tracks.slice(0, 5)});
 			}));
 
-			props.onPlayer(player);
-			console.log(player);
-			setIsPlayerLoaded(true);
+			let top50 = {};
+
+			response = await spotify.getCategoryPlaylists('toplists', {country: 'US'});
+			let playlist = response.playlists.items.filter(p => p.name === 'Top 50 - USA')[0];
+			response = await spotify.getPlaylistTracks(playlist.id);
+			top50.songs = response.items.map(song => song.track);
+
+			top50.artists = await Promise.all(top50.songs.map(async (song) => {
+				let artistId = song.artists[0].id;
+				let artist = await spotify.getArtist(artistId);
+				return pruneArtistData({...artist, songs: [song]});
+			}));
+			top50.songs = top50.songs.map(song => pruneSongData(song));
+
+			socket.emit('newPlayer', player);
+			socket.emit('extraData', top50);
+			onLogin(player.id);
 		};
 
 		let token = window.location.hash.split('&')[0].split('=')[1];
@@ -72,15 +90,16 @@ export default function Callback(props) {
 		spotify.setAccessToken(token);
 
 		grabPlayer();
-	}, []);
+		setIsPlayerLoaded(true);
+	}, [socket, onLogin]);
 
 	if (isPlayerLoaded) {
-		navigate('game', { replace: true });
+		navigate('rooms', { replace: true });
 		return null;
 	} else {
 		return (
-			<div className="home">
-				<h1 className="home-title">Loading Spotify data...</h1>
+			<div>
+				<h1>Loading Spotify data...</h1>
 			</div>
 		);
 	}

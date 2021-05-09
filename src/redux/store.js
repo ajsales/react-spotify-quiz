@@ -6,8 +6,7 @@ const server = process.env.NODE_ENV === 'production'
 	: "http://localhost:8081";
 
 const initialState = {
-	server,
-	socket: io(server, {withCredentials: true}),
+	socket: io(server),
 	playerId: ''
 };
 
@@ -16,7 +15,7 @@ const reducer = (state = initialState, action) => {
 		case 'socket/set':
 			return {
 				...state,
-				socket: io(server + action.url, {withCredentials: true})
+				socket: io(server + action.url)
 			};
 
 		case 'playerId/set':

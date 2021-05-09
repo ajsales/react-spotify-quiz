@@ -1,13 +1,17 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { navigate } from '@reach/router';
-import { SocketContext } from '../context/socket';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { setPlayerId, setSocket } from '../redux/actionCreators';
 
 import SpotifyWebApi from 'spotify-web-api-js';
 
-export default function Callback(props) {
+export default function Callback() {
+
+	const socket = useSelector(state => state.socket);
+	const dispatch = useDispatch();
+
 	const [ isPlayerLoaded, setIsPlayerLoaded ] = useState(false);
-	const socket = useContext(SocketContext);
-	const { onLogin } = props;
 
 	useEffect(() => {
 		const spotify = new SpotifyWebApi();
@@ -18,6 +22,7 @@ export default function Callback(props) {
 				img: song.album.images[0].url,
 				title: song.name,
 				artists: artists.join(', '),
+				toString: song.name + ' by ' + artists.join(', '),
 				preview: song.preview_url
 			};
 			return trackObj;
@@ -80,18 +85,18 @@ export default function Callback(props) {
 			}));
 			top50.songs = top50.songs.map(song => pruneSongData(song));
 
-			socket.emit('newPlayer', player);
-			socket.emit('extraData', top50);
-			onLogin(player.id);
-		};
+			socket.emit('newPlayer', player, top50, () => {
+				setIsPlayerLoaded(true);
+			});
 
+			dispatch(setPlayerId(player.id));
+		};
 		let token = window.location.hash.split('&')[0].split('=')[1];
 
 		spotify.setAccessToken(token);
 
 		grabPlayer();
-		setIsPlayerLoaded(true);
-	}, [socket, onLogin]);
+	}, [socket]);
 
 	if (isPlayerLoaded) {
 		navigate('rooms', { replace: true });

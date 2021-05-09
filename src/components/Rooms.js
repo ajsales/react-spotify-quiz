@@ -1,10 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { navigate } from '@reach/router';
-import { SocketContext } from '../context/socket';
 
-export default function Rooms(props) {
+import { useSelector, useDispatch } from 'react-redux';
+import { setSocket } from '../redux/actionCreators';
 
-	const socket = useContext(SocketContext);
+export default function Rooms() {
+
+	const socket = useSelector(state => state.socket);
+	const playerId = useSelector(state => state.playerId);
+	const dispatch = useDispatch();
 
 	const [ availableRooms, setAvailableRooms ] = useState([]);
 	const [ roomId, setRoomId ] = useState('');
@@ -27,26 +31,30 @@ export default function Rooms(props) {
 	};
 
 	const handleCreateRoom = () => {
-		socket.emit('newRoom', props.playerId);
+		socket.emit('newRoom', playerId, (gameId) => {
+			handleJoinGame(gameId);
+		});
 	};
 
-	socket.on('availableRooms', (rooms) => {
-		setAvailableRooms(rooms);
-		console.log('Available rooms: ', rooms);
-	});
-
-	socket.on('joinGame', (gameId) => {
-		handleJoinGame(gameId);
-	});
+	useEffect(() => {
+		dispatch(setSocket('/rooms'));
+	}, [dispatch])
 
 	useEffect(() => {
-		socket.emit('roomsRequest');
+		socket.on('availableRooms', (rooms) => {
+			setAvailableRooms(rooms);
+			console.log('Available rooms: ', rooms);
+		});
+
+		return () => {
+			socket.off('availableRooms');
+		};
 	}, [socket]);
 
 	return (
 		<div>
-			<button onClick={handleCreateRoom}>Create Room</button>
-			<form onSubmit={handleSubmit}>
+			<button onClick={handleCreateRoom} >Create Room</button>
+			<form onSubmit={handleSubmit} >
 				<input type="text" name="roomId" value={roomId} onChange={handleChange} />
 				<input type="submit" value="Join Room" />
 			</form>

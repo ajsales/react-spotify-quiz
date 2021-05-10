@@ -68,7 +68,7 @@ export default function Rooms() {
 	}, [socket]);
 
 	return (
-		<div>
+		<div className="Rooms" >
 			<button onClick={handleCreateRoom} >Create Room</button>
 			<form onSubmit={handleSubmit} >
 				<input type="text" name="roomId" value={roomId} onChange={handleChange} />

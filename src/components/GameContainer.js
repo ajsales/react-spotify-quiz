@@ -6,9 +6,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setSocket } from '../redux/actionCreators';
 
 /**
- * Games page.
+ * Games page. 
  */
-export default function Game(props) {
+export default function GameContainer(props) {
 
 	const socket = useSelector(state => state.socket);
 	const dispatch = useDispatch();

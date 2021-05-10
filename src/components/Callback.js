@@ -53,7 +53,7 @@ export default function Callback() {
 		return null;
 	} else {
 		return (
-			<div>
+			<div className="Callback">
 				<h1>Loading Spotify data...</h1>
 			</div>
 		);

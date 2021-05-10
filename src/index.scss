@@ -1,0 +1,99 @@
+$primary-color: #1db954;
+$secondary-color: #191414;
+
+html {
+	background: linear-gradient(rgba($primary-color, 0.5), rgba($primary-color, 0.5)),
+		url(./images/background-image.jpg) center bottom / cover no-repeat fixed;
+}
+
+.window {
+	.Home, .Callback, .Rooms {
+		top: 45%;
+		left: 50%;
+		position: absolute;
+		-ms-transform: translate(-50%, -50%);
+	  	transform: translate(-50%, -50%);
+
+	  	background: rgba($secondary-color, 0.8);
+	  	border-radius: 50px;
+	  	padding: 20px;
+
+	  	text-align: center;
+	}
+	
+}
+
+.Home {
+	.spotify-logo {
+		width: 180px;
+		height: auto;
+		vertical-align: -55%;
+		margin: 0 0 0 15px;
+	}
+
+	h1 {
+		color: white;
+		font-family: 'JetBrains Mono', monospace;
+		margin: 0 50px;
+		font-size: 24px;
+		font-weight: 400;
+	}
+
+	p {
+		text-transform: uppercase;
+		color: white;
+		font-family: 'Lato', sans-serif;
+		margin: 4px;
+		font-size: 10px;
+	}
+
+	button {
+		background: rgba($primary-color, 1);
+		border: transparent;
+		margin: 10px 0 0 0;
+		border-radius: 20px;
+		cursor: pointer;
+		padding: 5px 10px;
+	}
+
+	button:hover {
+		background: rgba($primary-color, 0.5);
+		animation: fadeOut 0.5s;
+	}
+
+	@keyframes fadeOut {
+		from { background: rgba($primary-color, 1) }
+		to { background: rgba($primary-color, 0.5) }
+	}
+}
+
+.Callback {
+	h1 {
+		color: white;
+		font-family: 'JetBrains Mono', monospace;
+		font-weight: 400;
+		font-size: 28px;
+		width: 100%;
+
+		overflow: hidden; /* Ensures the content is not revealed until the animation */
+		border-right: .15em solid rgba($primary-color, 1); /* The typwriter cursor */
+		white-space: nowrap; /* Keeps the content on a single line */
+		margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+		animation: 
+		  typing 2s steps(40, end),
+		  blink-caret .5s step-end infinite;
+	}
+
+	/* The typing effect */
+	@keyframes typing {
+	  from { width: 0 }
+	  to { width: 100%}
+	}
+
+	/* The typewriter cursor effect */
+	@keyframes blink-caret {
+	  from, to { border-color: transparent }
+	  50% { border-color: rgba($primary-color, 1); }
+	}
+}
+

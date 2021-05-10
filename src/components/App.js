@@ -5,7 +5,7 @@ import { Router } from '@reach/router';
 // Components
 import Home from './Home';
 import Rooms from './Rooms';
-import Game from './Game';
+import GameContainer from './GameContainer';
 import Callback from './Callback';
 
 /**
@@ -15,10 +15,10 @@ export default function App() {
 
 	// Routing for each page is set up here
 	return (
-		<Router>
+		<Router className="window" >
 			<Home path="/" />
 			<Rooms path="rooms" />
-			<Game path="game/:gameId" />
+			<GameContainer path="game/:gameId" />
 
 			<Callback path="callback" />
 		</Router>

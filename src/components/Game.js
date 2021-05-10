@@ -1,8 +1,13 @@
+// React packages
 import React, { useState, useEffect } from 'react';
 
+// Redux pages
 import { useSelector, useDispatch } from 'react-redux';
 import { setSocket } from '../redux/actionCreators';
 
+/**
+ * Games page.
+ */
 export default function Game(props) {
 
 	const socket = useSelector(state => state.socket);
@@ -12,9 +17,10 @@ export default function Game(props) {
 	const [ questionObj, setQuestionObj ] = useState({});
 	let song = null;
 
+	// Socket sends request for server to send a question
 	const questionRequest = () => {
-		console.log('Question request sended.');
 		socket.emit('questionRequest');
+		console.log('Question request sended.');
 	}
 
 	let result = [
@@ -22,11 +28,15 @@ export default function Game(props) {
 		<button onClick={questionRequest} key="button">Start Question</button>
 	];
 
+	// Sets socket namespace for page
 	useEffect(() => {
 		dispatch(setSocket('/game/' + props.gameId));
 	}, [dispatch, props.gameId]);
 
+	//Socket listeners
 	useEffect(() => {
+
+		// Server sends a new question
 		socket.on('newQuestion', (obj) => {
 			setQuestionObj(obj);
 			if (song) {

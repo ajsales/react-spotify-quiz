@@ -13,7 +13,11 @@ const server = process.env.NODE_ENV === 'production'
 // Initial Redux state for application
 const initialState = {
 	socket: io(server),
-	playerId: ''
+	playerId: '',
+	gameId: '',
+	host: '',
+	players: [],
+	question: {},
 };
 
 // Reducer for Redux store
@@ -30,6 +34,31 @@ const reducer = (state = initialState, action) => {
 				...state,
 				playerId: action.playerId
 			};
+
+		case 'gameId/set':
+			return {
+				...state,
+				gameId: action.gameId
+			}
+
+		case 'host/set':
+			return {
+				...state,
+				host: action.host
+			}
+
+		case 'players/set':
+			return {
+				...state,
+				players: action.players
+			}
+
+		case 'question/set':
+			return {
+				...state,
+				question: action.question
+			}
+
 
 		default:
 			return state

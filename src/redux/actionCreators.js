@@ -11,8 +11,8 @@ export const setSocket = (url) => {
 	return {
 		type: 'socket/set',
 		url
-	}
-}
+	};
+};
 
 /**
  * Sets player ID after logging in.
@@ -23,5 +23,33 @@ export const setPlayerId = (playerId) => {
 	return {
 		type: 'playerId/set',
 		playerId
-	}
-}
+	};
+};
+
+export const setGameId = (gameId) => {
+	return {
+		type: 'gameId/set',
+		gameId
+	};
+};
+
+export const setHost = (host) => {
+	return {
+		type: 'host/set',
+		host
+	};
+};
+
+export const setPlayers = (players) => {
+	return {
+		type: 'players/set',
+		players
+	};
+};
+
+export const setQuestion = (question) => {
+	return {
+		type: 'question/set',
+		question
+	};
+};

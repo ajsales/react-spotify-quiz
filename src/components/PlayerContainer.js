@@ -17,8 +17,22 @@ export default function PlayerContainer() {
 	}, [socket])
 
 	const result = players.map(player => {
-		return <img src={player.img} alt={player.name} key={player.name}/>;
+		return (<Player
+			img={player.img}
+			name={player.name}
+			points={player.points}
+			key={player.name}
+		/>);
 	});
 
 	return <div>{result}</div>;
+}
+
+function Player(props) {
+	return (
+		<div>
+			<img src={props.img} alt={props.name} />
+			<p>{props.name}: {props.points}</p>
+		</div>
+	);
 }

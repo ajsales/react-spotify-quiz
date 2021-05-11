@@ -26,9 +26,10 @@ export default function GameContainer(props) {
 	}, [dispatch, props.gameId]);
 
 	useEffect(() => {
-		socket.emit('joinGame', playerId);
-		console.log('You joined the game!');
-	}, [socket])
+		socket.emit('joinGame', playerId, () => {
+			console.log('You joined the game!');
+		});
+	}, [socket, playerId]);
 
 	return (
 		<div>

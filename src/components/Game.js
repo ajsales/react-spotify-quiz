@@ -1,64 +1,65 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setQuestion } from '../redux/actionCreators';
+
+import ChoiceContainer from './ChoiceContainer';
 
 export default function Game() {
 	
 	const socket = useSelector(state => state.socket);
+	const {
+		question,
+		song,
+		img
+	} = useSelector(state => state.question);
+	const dispatch = useDispatch();
 
 	const [ isPlaying, setIsPlaying] = useState(false);
-	const [ questionObj, setQuestionObj ] = useState({});
-	let song = null;
+
+	const audio = useRef(new Audio());
 
 	// Socket sends request for server to send a question
 	const questionRequest = () => {
 		socket.emit('questionRequest');
 		console.log('Question request sended.');
-	}
-
-	const playQuestion = (obj) => {
-		setQuestionObj(obj);
-		playSong(obj.song);
-		setIsPlaying(true);
-		console.log(obj.question);
-	}
-
-	const playSong = (url) => {
-		if (song) {
-			song.pause();
-		}
-		song = new Audio(url);
-		song.play();
-	}
+	};
 
 	//Socket listeners
 	useEffect(() => {
 
 		// Server sends a new question
-		socket.on('newQuestion', (obj) => {
-			playQuestion(obj);
+		socket.on('newQuestion', (questionObject) => {
+			dispatch(setQuestion(questionObject));
+			setIsPlaying(true);
 		});
 
 		return () => {
 			socket.off('newQuestion');
 		};
-	}, [socket])
+	}, [socket, dispatch]);
+
+	useEffect(() => {
+		if (audio.current) {
+			audio.current.pause();
+		}
+
+		const newAudio = new Audio(song);
+		newAudio.play()
+		audio.current = newAudio; 
+	}, [song]);
 
 	if (isPlaying) {
-		let choices = [];
-		for (let choice of questionObj.choices) {
-			choices.push(<li key={choice}>{choice}</li>);
-		}
 
 		return (
 			<div>
 				<button onClick={questionRequest} >Start Question</button>
-				<img src={questionObj.img} alt="Image"/>
-				<p>{questionObj.question}</p>
-				<ul key="choices">{choices}</ul>
+				<img src={img} alt={question} />
+				<p>{question}</p>
+				<ChoiceContainer />
 			</div>
 		);
 	} else {
 		return <button onClick={questionRequest} >Start Question</button>;
 	}
-};
+}

@@ -15,9 +15,9 @@ const initialState = {
 	socket: io(server),
 	playerId: '',
 	gameId: '',
-	host: '',
-	players: [],
-	question: {},
+	//host: '',
+	//players: [],
+	question: {}
 };
 
 // Reducer for Redux store

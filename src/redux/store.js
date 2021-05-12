@@ -17,7 +17,8 @@ const initialState = {
 	gameId: '',
 	//host: '',
 	//players: [],
-	question: {}
+	question: {},
+	answered: false
 };
 
 // Reducer for Redux store
@@ -57,6 +58,12 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				question: action.question
+			}
+
+		case 'answered/set':
+			return {
+				...state,
+				answered: action.boolean
 			}
 
 

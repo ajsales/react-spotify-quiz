@@ -12,7 +12,6 @@ export default function PlayerContainer() {
 	useEffect(() => {
 		socket.on('currentPlayers', (currentPlayers) => {
 			setPlayers(currentPlayers);
-			console.log(currentPlayers.map(p => p.name));
 		})
 	}, [socket])
 

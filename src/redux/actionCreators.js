@@ -53,3 +53,10 @@ export const setQuestion = (question) => {
 		question
 	};
 };
+
+export const setAnswered = (boolean) => {
+	return {
+		type: 'answered/set',
+		boolean
+	}
+}

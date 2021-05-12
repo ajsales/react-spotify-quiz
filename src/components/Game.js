@@ -13,6 +13,7 @@ export default function Game() {
 		song,
 		img
 	} = useSelector(state => state.question);
+	const answered = useSelector(state => state.answered);
 	const dispatch = useDispatch();
 
 	const [ isPlaying, setIsPlaying] = useState(false);
@@ -43,10 +44,11 @@ export default function Game() {
 		if (audio.current) {
 			audio.current.pause();
 		}
-
-		const newAudio = new Audio(song);
-		newAudio.play()
-		audio.current = newAudio; 
+		if (song) {
+			const newAudio = new Audio(song);
+			newAudio.play();
+			audio.current = newAudio;
+		} 
 	}, [song]);
 
 	if (isPlaying) {

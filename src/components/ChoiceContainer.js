@@ -7,18 +7,18 @@ export default function ChoiceContainer() {
 	
 	const socket = useSelector(state => state.socket);
 	const { choices, answers } = useSelector(state => state.question);
+	const timeLeft = useSelector(state => state.timeLeft);
 	const answered = useSelector(state => state.answered);
 	const dispatch = useDispatch();
 
 	const handleClick = (choice) => {
 		dispatch(setAnswered(true));
-		socket.emit('answeredQuestion', answers.includes(choice), 30);
+		socket.emit('answeredQuestion', answers.includes(choice), timeLeft);
 	};
 
 	useEffect(() => {
 		dispatch(setAnswered(false));
-	}, [dispatch, choices])
-
+	}, [dispatch, choices]);
 
 	const choiceList = choices.map(choice => {
 		let style = 'choice';

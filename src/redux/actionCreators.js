@@ -54,6 +54,19 @@ export const setQuestion = (question) => {
 	};
 };
 
+export const setTimeLeft = (time) => {
+	return {
+		type: 'timeLeft/set',
+		time
+	};
+};
+
+export const decrementTimeLeft = () => {
+	return {
+		type: 'timeLeft/decrement',
+	}
+};
+
 export const setAnswered = (boolean) => {
 	return {
 		type: 'answered/set',

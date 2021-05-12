@@ -18,6 +18,7 @@ const initialState = {
 	//host: '',
 	//players: [],
 	question: {},
+	timeLeft: 0,
 	answered: false
 };
 
@@ -58,6 +59,18 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				question: action.question
+			}
+
+		case 'timeLeft/set':
+			return {
+				...state,
+				timeLeft: action.time
+			}
+
+		case 'timeLeft/decrement':
+			return {
+				...state,
+				timeLeft: state.timeLeft - 1
 			}
 
 		case 'answered/set':

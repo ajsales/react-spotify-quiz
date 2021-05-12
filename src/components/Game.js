@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setQuestion } from '../redux/actionCreators';
+import { setQuestion, setAnswered } from '../redux/actionCreators';
 
 import ChoiceContainer from './ChoiceContainer';
 
@@ -16,8 +16,10 @@ export default function Game() {
 	const answered = useSelector(state => state.answered);
 	const dispatch = useDispatch();
 
-	const [ isPlaying, setIsPlaying] = useState(false);
+	const [ isPlaying, setIsPlaying ] = useState(false);
+	const [ timeLeft, setTimeLeft ] = useState(null);
 
+	const timer = useRef(null);
 	const audio = useRef(new Audio());
 
 	// Socket sends request for server to send a question
@@ -26,12 +28,20 @@ export default function Game() {
 		console.log('Question request sended.');
 	};
 
+	const startTimer = () => {
+		setTimeLeft(10);
+		timer.current = setInterval(() => {
+			setTimeLeft(prev => prev - 1);
+		}, 1000);
+	};
+
 	//Socket listeners
 	useEffect(() => {
 
 		// Server sends a new question
 		socket.on('newQuestion', (questionObject) => {
 			dispatch(setQuestion(questionObject));
+			startTimer();
 			setIsPlaying(true);
 		});
 
@@ -41,9 +51,13 @@ export default function Game() {
 	}, [socket, dispatch]);
 
 	useEffect(() => {
-		if (audio.current) {
-			audio.current.pause();
+		if (timeLeft === 0 || answered) {
+			clearInterval(timer.current);
+			dispatch(setAnswered(true));
 		}
+	}, [timeLeft, dispatch, answered])
+
+	useEffect(() => {
 		if (song) {
 			const newAudio = new Audio(song);
 			newAudio.play();
@@ -51,11 +65,17 @@ export default function Game() {
 		} 
 	}, [song]);
 
-	if (isPlaying) {
+	useEffect(() => {
+		if (audio.current && answered) {
+			audio.current.pause();
+		}
+	}, [answered])
 
+	if (isPlaying) {
 		return (
 			<div>
 				<button onClick={questionRequest} >Start Question</button>
+				<p>{timeLeft}</p>
 				<img src={img} alt={question} />
 				<p>{question}</p>
 				<ChoiceContainer />

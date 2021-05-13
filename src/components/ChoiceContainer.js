@@ -22,9 +22,6 @@ export default function ChoiceContainer() {
 		}
 	}, [dispatch, timeLeft])
 
-	useEffect(() => {
-		dispatch(setAnswered(false));
-	}, [dispatch, choices])
 
 	const choiceList = choices.map(choice => {
 		let style = 'choice';

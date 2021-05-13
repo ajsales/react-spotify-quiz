@@ -58,7 +58,8 @@ const reducer = (state = initialState, action) => {
 		case 'question/set':
 			return {
 				...state,
-				question: action.question
+				question: action.question,
+				answered: false
 			}
 
 		case 'timeLeft/set':

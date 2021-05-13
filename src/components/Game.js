@@ -16,9 +16,9 @@ export default function Game() {
 	const [ isPlaying, setIsPlaying ] = useState(false);
 
 	// Socket sends request for server to send a question
-	const questionRequest = () => {
-		socket.emit('questionRequest');
-		console.log('Question request sended.');
+	const startGame = () => {
+		socket.emit('startGame');
+		console.log('Game starts!');
 	};
 
 	//Socket listeners
@@ -30,6 +30,10 @@ export default function Game() {
 			setIsPlaying(true);
 		});
 
+		socket.on('endGame', () => {
+			setIsPlaying(false);
+		});
+
 		return () => {
 			socket.off('newQuestion');
 		};
@@ -38,7 +42,6 @@ export default function Game() {
 	if (isPlaying) {
 		return (
 			<div>
-				<button onClick={questionRequest} >Start Question</button>
 				<Timer />
 				<img src={img} alt={question} />
 				<p>{question}</p>
@@ -48,6 +51,6 @@ export default function Game() {
 			</div>
 		);
 	} else {
-		return <button onClick={questionRequest} >Start Question</button>;
+		return <button onClick={startGame} >Start Question</button>;
 	}
 }

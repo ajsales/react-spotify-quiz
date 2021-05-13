@@ -6,7 +6,6 @@ import { setTimeLeft, decrementTimeLeft } from '../redux/actionCreators';
 export default function Time() {
 
 	const socket = useSelector(state => state.socket);
-	const question = useSelector(state => state.question);
 	const answered = useSelector(state => state.answered);
 	const timeLeft = useSelector(state => state.timeLeft);
 	const dispatch = useDispatch();
@@ -14,7 +13,6 @@ export default function Time() {
 	const timer = useRef(null);
 
 	useEffect(() => {
-
 		const startTimer = () => {
 			dispatch(setTimeLeft(10));
 			timer.current = setInterval(() => {
@@ -22,25 +20,16 @@ export default function Time() {
 			}, 1000);
 		};
 
-		// Server sends a new question
-		socket.on('startTimer', () => {
+		if (!answered) {
 			startTimer();
-		});
-
-		return () => {
-			socket.off('startTimer');
-		};
-	}, [socket, dispatch]);
+		}
+	}, [socket, dispatch, answered]);
 
 	useEffect(() => {
 		if (timeLeft <= 0 || answered) {
 			clearInterval(timer.current);
 		}
 	}, [timeLeft, answered])
-
-	useEffect(() => {
-		clearInterval(timer.current);
-	}, [question])
 
 	return <p>{timeLeft}</p>;
 }

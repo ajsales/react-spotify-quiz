@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 export default function AudioPlayer() {
 
-	const socket = useSelector(state => state.socket);
+	const { song } = useSelector(state => state.question);
 	const answered = useSelector(state => state.answered);
 
 	const audio = useRef(null);
@@ -20,21 +20,16 @@ export default function AudioPlayer() {
 	}
 
 	useEffect(() => {
-
-		socket.on('playSong', (song) => {
-			playSong(song);
-		});
-
-		return () => {
-			socket.off('playSong');
-		};
-	}, [socket]);
-
-	useEffect(() => {
 		if (answered && audio.current) {
+			//console.log("Pausing:")
 			audio.current.pause();
 		} 
-	}, [answered])
+
+		if (song && !answered) {
+			//console.log("Playing:")
+			playSong(song);
+		}
+	}, [answered, song])
 
 	return null;
 }

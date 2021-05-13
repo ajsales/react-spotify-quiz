@@ -13,7 +13,7 @@ export default function ChoiceContainer() {
 
 	const handleClick = (choice) => {
 		dispatch(setAnswered(true));
-		socket.emit('answeredQuestion', answers.includes(choice), timeLeft);
+		socket.emit('answeredQuestion', answers.includes(choice), timeLeft, choice);
 	};
 
 	useEffect(() => {

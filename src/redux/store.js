@@ -18,7 +18,7 @@ const initialState = {
 	//host: '',
 	//players: [],
 	question: {},
-	timeLeft: 0,
+	timeLeft: 10,
 	answered: false
 };
 

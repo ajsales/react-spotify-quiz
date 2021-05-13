@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setQuestion, setAnswered } from '../redux/actionCreators';
+import { setQuestion } from '../redux/actionCreators';
 
 import ChoiceContainer from './ChoiceContainer';
 import Timer from './Timer';
@@ -11,7 +11,6 @@ export default function Game() {
 	
 	const socket = useSelector(state => state.socket);
 	const { question, img } = useSelector(state => state.question);
-	const answered = useSelector(state => state.answered);
 	const dispatch = useDispatch();
 
 	const [ isPlaying, setIsPlaying ] = useState(false);

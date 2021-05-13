@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setAnswered, setTimeLeft, decrementTimeLeft } from '../redux/actionCreators';
+import { setTimeLeft, decrementTimeLeft } from '../redux/actionCreators';
 
 export default function Time() {
 
@@ -30,14 +30,13 @@ export default function Time() {
 		return () => {
 			socket.off('startTimer');
 		};
-	}, [socket]);
+	}, [socket, dispatch]);
 
 	useEffect(() => {
 		if (timeLeft <= 0 || answered) {
 			clearInterval(timer.current);
-			dispatch(setAnswered(true));
 		}
-	}, [timeLeft, dispatch, answered])
+	}, [timeLeft, answered])
 
 	useEffect(() => {
 		clearInterval(timer.current);

@@ -17,8 +17,14 @@ export default function ChoiceContainer() {
 	};
 
 	useEffect(() => {
+		if (timeLeft <= 0) {
+			dispatch(setAnswered(true));
+		}
+	}, [dispatch, timeLeft])
+
+	useEffect(() => {
 		dispatch(setAnswered(false));
-	}, [dispatch, choices]);
+	}, [dispatch, choices])
 
 	const choiceList = choices.map(choice => {
 		let style = 'choice';

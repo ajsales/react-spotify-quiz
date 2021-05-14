@@ -8,7 +8,7 @@ html {
 
 .window {
 	.Home, .Callback, .Rooms {
-		top: 45%;
+		top: 50%;
 		left: 50%;
 		position: absolute;
 		-ms-transform: translate(-50%, -50%);
@@ -19,6 +19,15 @@ html {
 	  	padding: 20px;
 
 	  	text-align: center;
+	}
+
+	.Callback {
+		width: 30%;
+	}
+
+	.Rooms {
+		width: 75%;
+		height: 75%;
 	}
 	
 }
@@ -94,6 +103,31 @@ html {
 	@keyframes blink-caret {
 	  from, to { border-color: transparent }
 	  50% { border-color: rgba($primary-color, 1); }
+	}
+}
+
+.Rooms {
+	display: flex;
+    justify-content: center;
+	align-items: center;
+
+	.spotify-logo {
+		width: 180px;
+		height: auto;
+		vertical-align: -55%;
+		margin: 0 0 0 15px;
+	}
+
+	h1 {
+		color: white;
+		font-family: 'JetBrains Mono', monospace;
+		margin: 0 150px 0 0;
+		font-size: 24px;
+		font-weight: 400;
+	}
+
+	form {
+		margin: 150px 0 0 0;
 	}
 }
 

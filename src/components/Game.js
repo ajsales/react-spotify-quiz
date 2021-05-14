@@ -14,10 +14,12 @@ export default function Game() {
 	const dispatch = useDispatch();
 
 	const [ isPlaying, setIsPlaying ] = useState(false);
+	const [ isLoadingQuestion, setIsLoadingQuestion ] = useState(true);
 
 	// Socket sends request for server to send a question
 	const startGame = () => {
 		socket.emit('startGame');
+		setIsPlaying(true);
 		console.log('Game starts!');
 	};
 
@@ -26,8 +28,11 @@ export default function Game() {
 
 		// Server sends a new question
 		socket.on('newQuestion', (questionObject) => {
-			dispatch(setQuestion(questionObject));
-			setIsPlaying(true);
+			setIsLoadingQuestion(true);
+			setTimeout(() => {
+				dispatch(setQuestion(questionObject));
+				setIsLoadingQuestion(false);
+			}, 3000);
 		});
 
 		socket.on('endGame', () => {
@@ -39,7 +44,9 @@ export default function Game() {
 		};
 	}, [socket, dispatch]);
 
-	if (isPlaying) {
+	if (isPlaying && isLoadingQuestion) {
+		return <h2>Loading question...</h2>;
+	} else if (isPlaying) {
 		return (
 			<div>
 				<Timer />

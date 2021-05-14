@@ -12,7 +12,7 @@ export default function PlayerContainer() {
 	useEffect(() => {
 		socket.on('currentPlayers', (currentPlayers) => {
 			setPlayers(currentPlayers);
-		})
+		});
 	}, [socket])
 
 	const result = players.map(player => {

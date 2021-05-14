@@ -6,6 +6,8 @@ import { navigate } from '@reach/router';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSocket } from '../redux/actionCreators';
 
+import spotifyLogo from '../images/spotify-logo.png';
+
 /**
  * Rooms page.
  */
@@ -69,11 +71,17 @@ export default function Rooms() {
 
 	return (
 		<div className="Rooms" >
-			<button onClick={handleCreateRoom} >Create Room</button>
-			<form onSubmit={handleSubmit} >
-				<input type="text" name="roomId" value={roomId} onChange={handleChange} />
-				<input type="submit" value="Join Room" />
-			</form>
+			<h1>
+				Friends Quiz for 
+				<img className="spotify-logo" src={spotifyLogo} alt="Spotify logo" />
+			</h1>
+			<div>
+				<button onClick={handleCreateRoom} >Create Room</button>
+				<form onSubmit={handleSubmit} >
+					<input type="text" name="roomId" value={roomId} onChange={handleChange} />
+					<input type="submit" value="Join Room" />
+				</form>
+			</div>
 		</div>
 	);
 }

@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 export default function PlayerContainer() {
 
 	const socket = useSelector(state => state.socket);
-	const gameId = useSelector(state => state.gameId);
 
 	const [ players, setPlayers ] = useState([]);
 
@@ -27,7 +26,6 @@ export default function PlayerContainer() {
 
 	return (
 		<div className="Player-Container">
-			<h1 key={gameId}>Game: {gameId}</h1>
 			<div>{result}</div>
 		</div>
 	);
@@ -35,9 +33,10 @@ export default function PlayerContainer() {
 
 function Player(props) {
 	return (
-		<div>
+		<div className="player">
 			<img src={props.img} alt={props.name} />
-			<p>{props.name}: {props.points}</p>
+			<span className="name">{props.name}</span>
+			<span className="points">{props.points}</span>
 		</div>
 	);
 }

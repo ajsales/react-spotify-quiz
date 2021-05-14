@@ -28,6 +28,7 @@ export default function Game() {
 
 		// Server sends a new question
 		socket.on('newQuestion', (questionObject) => {
+			console.log('New question');
 			setIsLoadingQuestion(true);
 			setTimeout(() => {
 				dispatch(setQuestion(questionObject));
@@ -46,7 +47,7 @@ export default function Game() {
 
 	let result;
 	if (isPlaying && isLoadingQuestion) {
-		result = <h2>Loading question...</h2>
+		result = <h2>Loading question...</h2>;
 	} else if (isPlaying) {
 		result = (
 			<div>

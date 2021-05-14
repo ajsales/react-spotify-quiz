@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setTimeLeft, decrementTimeLeft } from '../redux/actionCreators';
+import { decrementTimeLeft } from '../redux/actionCreators';
 
 export default function Time() {
 
@@ -14,7 +14,6 @@ export default function Time() {
 
 	useEffect(() => {
 		const startTimer = () => {
-			dispatch(setTimeLeft(10));
 			timer.current = setInterval(() => {
 				dispatch(decrementTimeLeft());
 			}, 1000);

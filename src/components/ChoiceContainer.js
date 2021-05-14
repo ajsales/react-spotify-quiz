@@ -19,8 +19,9 @@ export default function ChoiceContainer() {
 	useEffect(() => {
 		if (timeLeft <= 0) {
 			dispatch(setAnswered(true));
+			socket.emit('answeredQuestion', false, 0, null);
 		}
-	}, [dispatch, timeLeft])
+	}, [dispatch, socket, timeLeft])
 
 
 	const choiceList = choices.map(choice => {

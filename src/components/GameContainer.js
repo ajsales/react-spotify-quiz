@@ -1,5 +1,6 @@
 // React packages
 import React, { useEffect } from 'react';
+import ReactTooltip from 'react-tooltip';
 
 // Redux pages
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,6 +16,7 @@ export default function GameContainer(props) {
 
 	const socket = useSelector(state => state.socket);
 	const playerId = useSelector(state => state.playerId);
+	const gameId = useSelector(state => state.gameId);
 	const dispatch = useDispatch();
 
 
@@ -33,6 +35,14 @@ export default function GameContainer(props) {
 	return (
 		<div className="Game-Container">
 			<Game />
+			<button
+				className="game-id"
+				onClick={() => navigator.clipboard.writeText(gameId)}
+				data-tip="Copy to clipboard"
+			>
+				<p>ROOM ID: {gameId}</p>
+			</button>
+			<ReactTooltip />
 			<PlayerContainer />
 		</div>
 	);

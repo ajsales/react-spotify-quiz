@@ -4,6 +4,7 @@ $secondary-color: #191414;
 html {
 	background: linear-gradient(rgba($primary-color, 0.5), rgba($primary-color, 0.5)),
 		url(./images/background-image.jpg) center bottom / cover no-repeat fixed;
+	height: 100%;
 }
 
 .window {
@@ -23,6 +24,16 @@ html {
 
 	.Rooms {
 		width: 75%;
+	}
+
+	.Game-Container {
+		width: 90%;
+		height: 90%;
+		top: 50%;
+		left: 50%;
+		position: absolute;
+		-ms-transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);
 	}
 }
 
@@ -162,15 +173,99 @@ html {
 .Game-Container {
 
 	display: grid;
+	grid:
+		"game game-id" 1fr
+		"game players" 7fr
+		/ 5fr 1fr;
+	gap: 10px 20px;
 
 	.Game {
-		background: rgba($secondary-color, 0.8);
+		background: $secondary-color;
 	  	border-radius: 50px;
-	  	margin: 10px;
+	  	
+	  	grid-area: game;
+	}
+
+	.game-id {
+		grid-area: game-id;
+		align-self: center;
+		justify-self: center;
+		padding: 10px 20px;
+		background: $primary-color;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+		box-shadow: 0px 4px 4px 1px rgba(0, 0, 0, 0.5);
+		p {
+			margin: 0;
+			color: white;
+			font-family: 'Lato', sans-serif;
+		}
+	}
+
+	.game-id:hover {
+		background: rgba($primary-color, 0.5);
+		animation: fadeOut 0.5s;
 	}
 
 	.Player-Container {
+		grid-area: players;
 
+		.player {
+			position: relative;
+			text-align: center;
+
+			img {
+				width: 80px;
+				height: 80px;
+				border-radius: 80px;
+			}
+
+			.name {
+				position: absolute;
+				top: 85%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+
+				font-family: 'JetBrains Mono', monospace;
+				color: white;
+				background: $primary-color;
+				font-size: 12px;
+				width: 100%;
+				line-height: 25px;
+				border-radius: 25px;
+				filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
+
+				display: inline-block;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+
+			.points {
+				position: absolute;
+				top: 0;
+				right: 0;
+
+				font-family: 'JetBrains Mono', monospace;
+				color: white;
+				background: $primary-color;
+				font-size: 15px;
+				width: 25px;
+				height: 25px;
+				line-height: 25px;
+				border-radius: 25px;
+				box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+			}
+		}
+
+		.player:nth-child(odd) {
+			float: left;
+		}
+
+		.player:nth-child(even) {
+			float: right;
+		}
 	}
 }
 

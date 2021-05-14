@@ -69,11 +69,6 @@ html {
 		background: rgba($primary-color, 0.5);
 		animation: fadeOut 0.5s;
 	}
-
-	@keyframes fadeOut {
-		from { background: rgba($primary-color, 1) }
-		to { background: rgba($primary-color, 0.5) }
-	}
 }
 
 .Callback {
@@ -91,18 +86,6 @@ html {
 		animation: 
 		  typing 2s steps(40, end),
 		  blink-caret .5s step-end infinite;
-	}
-
-	/* The typing effect */
-	@keyframes typing {
-	  from { width: 0 }
-	  to { width: 100%}
-	}
-
-	/* The typewriter cursor effect */
-	@keyframes blink-caret {
-	  from, to { border-color: transparent }
-	  50% { border-color: rgba($primary-color, 1); }
 	}
 }
 
@@ -129,5 +112,52 @@ html {
 	form {
 		margin: 150px 0 0 0;
 	}
+
+	button, input[type=submit] {
+		background: rgba($primary-color, 1);
+		border: transparent;
+		margin: 10px 0 0 0;
+		border-radius: 20px;
+		cursor: pointer;
+		padding: 5px 10px;
+	}
+
+	button:hover, input[type=submit]:hover {
+		background: rgba($primary-color, 0.5);
+		animation: fadeOut 0.5s;
+	}
+
+	p, input[type=submit] {
+		text-transform: uppercase;
+		color: white;
+		font-family: 'Lato', sans-serif;
+		margin: 4px;
+		font-size: 10px;
+	}
+
+	input[type=text] {
+		box-sizing: border-box;
+		background: none;
+		color: white;
+		font-family: 'Lato', sans-serif;
+		border: none;
+		border-bottom: 2px solid white;
+	}
 }
 
+@keyframes fadeOut {
+	from { background: rgba($primary-color, 1) }
+	to { background: rgba($primary-color, 0.5) }
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100%}
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: rgba($primary-color, 1); }
+}

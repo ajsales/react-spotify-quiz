@@ -44,10 +44,11 @@ export default function Game() {
 		};
 	}, [socket, dispatch]);
 
+	let result;
 	if (isPlaying && isLoadingQuestion) {
-		return <h2>Loading question...</h2>;
+		result = <h2>Loading question...</h2>
 	} else if (isPlaying) {
-		return (
+		result = (
 			<div>
 				<Timer />
 				<img src={img} alt={question} />
@@ -58,6 +59,7 @@ export default function Game() {
 			</div>
 		);
 	} else {
-		return <button onClick={startGame} >Start Question</button>;
+		result = <button onClick={startGame}>Start Game</button>;
 	}
+	return <div className="Game">{result}</div>
 }

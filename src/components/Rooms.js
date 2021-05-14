@@ -75,19 +75,18 @@ export default function Rooms() {
 				Friends Quiz for 
 				<img className="spotify-logo" src={spotifyLogo} alt="Spotify logo" />
 			</h1>
-			<div>
-				<button onClick={handleCreateRoom} ><p>Create Room</p></button>
-				<form onSubmit={handleSubmit} >
-					<input
-						type="text"
-						name="roomId"
-						value={roomId}
-						onChange={handleChange}
-						placeholder="Room ID"
-					/>
-					<input type="submit" value="Join Room" />
-				</form>
-			</div>
+			
+			<button onClick={handleCreateRoom} ><p>Create Room</p></button>
+			<form onSubmit={handleSubmit} >
+				<input
+					type="text"
+					name="roomId"
+					value={roomId}
+					onChange={handleChange}
+					placeholder="Room ID"
+				/>
+				<input type="submit" value="Join Room" />
+			</form>
 		</div>
 	);
 }

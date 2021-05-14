@@ -15,7 +15,6 @@ export default function GameContainer(props) {
 
 	const socket = useSelector(state => state.socket);
 	const playerId = useSelector(state => state.playerId);
-	const gameId = useSelector(state => state.gameId);
 	const dispatch = useDispatch();
 
 
@@ -32,8 +31,7 @@ export default function GameContainer(props) {
 	}, [socket, playerId]);
 
 	return (
-		<div>
-			<h1 key={gameId}>Game: {gameId}</h1>
+		<div className="Game-Container">
 			<Game />
 			<PlayerContainer />
 		</div>

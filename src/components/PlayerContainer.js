@@ -8,11 +8,15 @@ export default function PlayerContainer() {
 
 	const [ players, setPlayers] = useState([]);
 
-	//Socket listeners
+	// Socket listeners
 	useEffect(() => {
+
+		// Server message to update players
+		// (new player added, player left, points added, etc.)
 		socket.on('currentPlayers', (currentPlayers) => {
 			setPlayers(currentPlayers);
 		});
+
 	}, [socket])
 
 	const result = players.map(player => {

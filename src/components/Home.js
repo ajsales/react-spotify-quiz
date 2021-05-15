@@ -4,6 +4,7 @@ import React from 'react';
 // Spotify API request helper
 import spotifyRequestUrl from '../helper/spotifyRequestUrl';
 
+// Media imports
 import spotifyLogo from '../media/spotify-logo.png';
 
 /**
@@ -11,6 +12,7 @@ import spotifyLogo from '../media/spotify-logo.png';
  */
 export default function Home() {
 
+	// Redirects user for Spotify API token request
 	const handleClick = () => {
 		window.location.href = spotifyRequestUrl;
 	}

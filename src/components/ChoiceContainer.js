@@ -14,6 +14,7 @@ export default function ChoiceContainer() {
 	const answered = useSelector(state => state.answered);
 	const dispatch = useDispatch();
 
+	// Handles answering
 	const handleClick = (choice) => {
 		dispatch(setAnswered(true));
 		let correct = answers.includes(choice);
@@ -21,6 +22,7 @@ export default function ChoiceContainer() {
 		socket.emit('answeredQuestion', correct, timeLeft, choice);
 	};
 
+	// Plays sfx for answering questions
 	const playAnswerAudio = (correct) => {
 		let audio = correct
 			? new Audio(correctAnswer)
@@ -29,6 +31,8 @@ export default function ChoiceContainer() {
 		audio.play(); 
 	}
 
+	// Automatically sends response to server if
+	// no answer within time limit
 	useEffect(() => {
 		if (timeLeft <= 0) {
 			dispatch(setAnswered(true));
@@ -39,6 +43,9 @@ export default function ChoiceContainer() {
 
 
 	const choiceList = choices.map(choice => {
+
+		// Styling for answer buttons for after
+		// answering
 		let style = 'choice';
 		if (answered) {
 			style = style.concat(answers.includes(choice)

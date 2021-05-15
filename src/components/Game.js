@@ -32,12 +32,15 @@ export default function Game() {
 		socket.on('newQuestion', (questionObject) => {
 			console.log('New question');
 			setIsLoadingQuestion(true);
+
+			// Gives player a moment to notice that there's a new question
 			setTimeout(() => {
 				dispatch(setQuestion(questionObject));
 				setIsLoadingQuestion(false);
 			}, 3000);
 		});
 
+		// Server ends game
 		socket.on('endGame', () => {
 			setIsPlaying(false);
 			setPlayAgain(true);
@@ -49,9 +52,15 @@ export default function Game() {
 	}, [socket, dispatch]);
 
 	let result;
+
 	if (isPlaying && isLoadingQuestion) {
+
+		// Between questions
 		result = <h2 className="loading">Loading question...</h2>;
+
 	} else if (isPlaying) {
+
+		// While a question is loaded
 		result = (
 			<div className="playing">
 				<Timer />
@@ -62,12 +71,16 @@ export default function Game() {
 				<AudioPlayer />
 			</div>
 		);
+
 	} else {
+
+		// Game hasn't started yet
 		result = (
 			<button onClick={startGame} className="start-game">
 				{playAgain ? 'Play Again?' : 'Start Game'}
 			</button>
 		);
+
 	}
 	return <div className="Game">{result}</div>
 }

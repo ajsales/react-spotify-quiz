@@ -20,13 +20,14 @@ export default function AudioPlayer() {
 	}
 
 	useEffect(() => {
+
+		// Pauses song when question is answered
 		if (answered && audio.current) {
-			//console.log("Pausing:")
 			audio.current.pause();
 		} 
 
+		// Plays song when question is given
 		if (song && !answered) {
-			//console.log("Playing:")
 			playSong(song.preview);
 		}
 	}, [answered, song])

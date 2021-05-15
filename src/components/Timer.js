@@ -12,6 +12,7 @@ export default function Time() {
 
 	const timer = useRef(null);
 
+	// Starts timer at beginning of question
 	useEffect(() => {
 		const startTimer = () => {
 			timer.current = setInterval(() => {
@@ -24,6 +25,8 @@ export default function Time() {
 		}
 	}, [socket, dispatch, answered]);
 
+	// Ends timer when timer reaches 0 or
+	// if question is answered
 	useEffect(() => {
 		if (timeLeft <= 0 || answered) {
 			clearInterval(timer.current);

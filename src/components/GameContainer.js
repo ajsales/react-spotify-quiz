@@ -19,13 +19,13 @@ export default function GameContainer(props) {
 	const gameId = useSelector(state => state.gameId);
 	const dispatch = useDispatch();
 
-
 	// Sets socket namespace for page
 	useEffect(() => {
 		dispatch(setGameId(props.gameId));
 		dispatch(setSocket('/game/' + props.gameId));
 	}, [dispatch, props.gameId]);
 
+	// Sends message to server to add player to game
 	useEffect(() => {
 		socket.emit('joinGame', playerId, () => {
 			console.log('You joined the game!');

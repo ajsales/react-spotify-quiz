@@ -6,6 +6,7 @@ import { navigate } from '@reach/router';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSocket } from '../redux/actionCreators';
 
+// Media import
 import spotifyLogo from '../media/spotify-logo.png';
 
 /**

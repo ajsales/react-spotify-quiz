@@ -3,6 +3,9 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setAnswered } from '../redux/actionCreators';
 
+import correctAnswer from '../media/correct-answer.wav';
+import wrongAnswer from '../media/wrong-answer.wav';
+
 export default function ChoiceContainer() {
 	
 	const socket = useSelector(state => state.socket);
@@ -13,12 +16,23 @@ export default function ChoiceContainer() {
 
 	const handleClick = (choice) => {
 		dispatch(setAnswered(true));
-		socket.emit('answeredQuestion', answers.includes(choice), timeLeft, choice);
+		let correct = answers.includes(choice);
+		playAnswerAudio(correct);
+		socket.emit('answeredQuestion', correct, timeLeft, choice);
 	};
+
+	const playAnswerAudio = (correct) => {
+		let audio = correct
+			? new Audio(correctAnswer)
+			: new Audio(wrongAnswer);
+
+		audio.play(); 
+	}
 
 	useEffect(() => {
 		if (timeLeft <= 0) {
 			dispatch(setAnswered(true));
+
 			socket.emit('answeredQuestion', false, 0, null);
 		}
 	}, [dispatch, socket, timeLeft])

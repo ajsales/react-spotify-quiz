@@ -4,7 +4,7 @@ import React from 'react';
 // Spotify API request helper
 import spotifyRequestUrl from '../helper/spotifyRequestUrl';
 
-import spotifyLogo from '../images/spotify-logo.png';
+import spotifyLogo from '../media/spotify-logo.png';
 
 /**
  * Home page.

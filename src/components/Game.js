@@ -45,6 +45,8 @@ export default function Game() {
 		};
 	}, [socket, dispatch]);
 
+	
+
 	let result;
 	if (isPlaying && isLoadingQuestion) {
 		result = <h2 className="loading">Loading question...</h2>;

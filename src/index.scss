@@ -7,7 +7,7 @@ $choice-4-color: #FF9B42;
 
 html {
 	background: linear-gradient(rgba($primary-color, 0.5), rgba($primary-color, 0.5)),
-		url(./images/background-image.jpg) center bottom / cover no-repeat fixed;
+		url(./media/background-image.jpg) center bottom / cover no-repeat fixed;
 	height: 100%;
 }
 
@@ -190,7 +190,7 @@ html {
 	  	grid-area: game;
 	  	display: grid;
 	  	grid-template-columns: 1fr 1fr 1fr 1fr;
-	  	grid-template-rows: 1fr 1fr .5fr .5fr .5fr 20px;
+	  	grid-template-rows: 1fr 1fr .3fr .5fr .5fr 20px;
 
 	  	.start-game {
 	  		grid-column: 2 / span 2;
@@ -227,7 +227,7 @@ html {
 	  		grid-column: 1 / span 4;
 	  		grid-row: 1 / span 6;
 	  		grid-template-columns: 1fr 1fr 1fr 1fr;
-	  		grid-template-rows: 1fr 1fr .5fr .5fr .5fr 20px;
+	  		grid-template-rows: 1fr 1fr .3fr .5fr .5fr 20px;
 
 	  		.timer {
 	  			grid-column: 4 / span 1;
@@ -238,9 +238,13 @@ html {
 	  			font-family: 'JetBrains Mono', monospace;
 	  			color: white;
 	  			background: $primary-color;
+	  			font-size: 20px;
 
-	  			width: 25px;
-	  			height: 25px;
+	  			width: 50px;
+	  			height: 50px;
+	  			line-height: 50px;
+	  			border-radius: 50px;
+	  			text-align: center;
 	  		}
 
 	  		.image {
@@ -249,8 +253,8 @@ html {
 	  			align-self: center;
 	  			justify-self: center;
 
-	  			width: 150px;
-	  			height: 150px;
+	  			width: 280px;
+	  			height: 280px;
 	  		}
 
 	  		.question {
@@ -258,6 +262,9 @@ html {
 	  			grid-row: 3 / span 1;
 	  			align-self: center;
 	  			justify-self: center;
+
+	  			font-family: 'JetBrains Mono', monospace;
+	  			color: white;
 	  		}
 
 	  		.choice-container {
@@ -265,7 +272,7 @@ html {
 	  			grid-column: 1 / span 4;
 	  			grid-row: 1 / span 6;
 	  			grid-template-columns: 1fr 1fr 1fr 1fr;
-	  			grid-template-rows: 1fr 1fr .5fr .5fr .5fr 20px;
+	  			grid-template-rows: 1fr 1fr .3fr .5fr .5fr 20px;
 	  			gap: 0px 10px;
 	  		}
 

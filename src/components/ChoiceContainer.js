@@ -32,7 +32,7 @@ export default function ChoiceContainer() {
 	useEffect(() => {
 		if (timeLeft <= 0) {
 			dispatch(setAnswered(true));
-
+			playAnswerAudio(false);
 			socket.emit('answeredQuestion', false, 0, null);
 		}
 	}, [dispatch, socket, timeLeft])
@@ -41,10 +41,11 @@ export default function ChoiceContainer() {
 	const choiceList = choices.map(choice => {
 		let style = 'choice';
 		if (answered) {
-			style.concat(answers.includes(choice)
+			style = style.concat(answers.includes(choice)
 				? ' correct'
 				: ' wrong');
 		}
+		console.log(style);
 
 		return (
 			<button

@@ -6,7 +6,7 @@ export default function PlayerContainer() {
 
 	const socket = useSelector(state => state.socket);
 
-	const [ players, setPlayers ] = useState([]);
+	const [ players, setPlayers] = useState([]);
 
 	//Socket listeners
 	useEffect(() => {

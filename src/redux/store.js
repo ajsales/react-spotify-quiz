@@ -75,7 +75,6 @@ const reducer = (state = initialState, action) => {
 				answered: action.boolean
 			}
 
-
 		default:
 			return state
 	}

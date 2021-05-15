@@ -45,7 +45,6 @@ export default function ChoiceContainer() {
 				? ' correct'
 				: ' wrong');
 		}
-		console.log(style);
 
 		return (
 			<button

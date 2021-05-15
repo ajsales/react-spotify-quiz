@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setQuestion } from '../redux/actionCreators';
 
-import ChoiceContainer from './ChoiceContainer';
 import Timer from './Timer';
+import Question from './Question';
+import ChoiceContainer from './ChoiceContainer';
 import AudioPlayer from './AudioPlayer';
 
 export default function Game() {
@@ -15,6 +16,7 @@ export default function Game() {
 
 	const [ isPlaying, setIsPlaying ] = useState(false);
 	const [ isLoadingQuestion, setIsLoadingQuestion ] = useState(true);
+	const [ playAgain, setPlayAgain] = useState(false);
 
 	// Socket sends request for server to send a question
 	const startGame = () => {
@@ -38,6 +40,7 @@ export default function Game() {
 
 		socket.on('endGame', () => {
 			setIsPlaying(false);
+			setPlayAgain(true);
 		});
 
 		return () => {
@@ -53,14 +56,18 @@ export default function Game() {
 			<div className="playing">
 				<Timer />
 				<img src={img} alt={question} className="image"/>
-				<p className="question">{question}</p>
+				<Question />
 				<ChoiceContainer />
 
 				<AudioPlayer />
 			</div>
 		);
 	} else {
-		result = <button onClick={startGame} className="start-game">Start Game</button>;
+		result = (
+			<button onClick={startGame} className="start-game">
+				{playAgain ? 'Play Again?' : 'Start Game'}
+			</button>
+		);
 	}
 	return <div className="Game">{result}</div>
 }

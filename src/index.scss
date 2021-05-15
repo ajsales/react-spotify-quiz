@@ -266,6 +266,11 @@ html {
 
 	  			font-family: 'JetBrains Mono', monospace;
 	  			color: white;
+	  			text-align: center;
+
+	  			.highlight {
+	  				color: $primary-color;
+	  			}
 	  		}
 
 	  		.choice-container {

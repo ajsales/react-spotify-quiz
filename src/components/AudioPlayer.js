@@ -27,7 +27,7 @@ export default function AudioPlayer() {
 
 		if (song && !answered) {
 			//console.log("Playing:")
-			playSong(song);
+			playSong(song.preview);
 		}
 	}, [answered, song])
 

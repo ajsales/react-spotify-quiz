@@ -47,20 +47,20 @@ export default function Game() {
 
 	let result;
 	if (isPlaying && isLoadingQuestion) {
-		result = <h2>Loading question...</h2>;
+		result = <h2 className="loading">Loading question...</h2>;
 	} else if (isPlaying) {
 		result = (
-			<div>
+			<div className="playing">
 				<Timer />
-				<img src={img} alt={question} />
-				<p>{question}</p>
+				<img src={img} alt={question} className="image"/>
+				<p className="question">{question}</p>
 				<ChoiceContainer />
 
 				<AudioPlayer />
 			</div>
 		);
 	} else {
-		result = <button onClick={startGame}>Start Game</button>;
+		result = <button onClick={startGame} className="start-game">Start Game</button>;
 	}
 	return <div className="Game">{result}</div>
 }

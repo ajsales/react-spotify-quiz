@@ -30,5 +30,5 @@ export default function Time() {
 		}
 	}, [timeLeft, answered])
 
-	return <p>{timeLeft}</p>;
+	return <p className="timer">{timeLeft}</p>;
 }

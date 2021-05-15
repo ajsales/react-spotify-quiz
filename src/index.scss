@@ -1,5 +1,9 @@
 $primary-color: #1db954;
 $secondary-color: #191414;
+$choice-1-color: #697A21;
+$choice-2-color: #00A7E1;
+$choice-3-color: #ED33B9;
+$choice-4-color: #FF9B42;
 
 html {
 	background: linear-gradient(rgba($primary-color, 0.5), rgba($primary-color, 0.5)),
@@ -72,7 +76,7 @@ html {
 
 	button:hover {
 		background: rgba($primary-color, 0.5);
-		animation: fadeOut 0.5s;
+		animation: fadeOutPrimary 0.5s;
 	}
 }
 
@@ -146,7 +150,7 @@ html {
 
 	button:hover, input[type=submit]:hover {
 		background: rgba($primary-color, 0.5);
-		animation: fadeOut 0.5s;
+		animation: fadeOutPrimary 0.5s;
 	}
 
 	p, input[type=submit] {
@@ -184,6 +188,153 @@ html {
 	  	border-radius: 50px;
 	  	
 	  	grid-area: game;
+	  	display: grid;
+	  	grid-template-columns: 1fr 1fr 1fr 1fr;
+	  	grid-template-rows: 1fr 1fr .5fr .5fr .5fr 20px;
+
+	  	.start-game {
+	  		grid-column: 2 / span 2;
+	  		grid-row: 2 / span 1;
+	  		align-self: center;
+	  		justify-self: center;
+
+	  		padding: 10px 20px;
+	  		background: $primary-color;
+	  		border: none;
+	  		border-radius: 5px;
+	  		cursor: pointer;
+
+	  		color: white;
+	  		font-family: 'Lato', sans-serif;
+	  	}
+
+	  	.loading {
+	  		grid-column: 2 / span 2;
+	  		grid-row: 2 / span 1;
+	  		align-self: center;
+	  		justify-self: center;
+	  		color: white;
+	  		font-family: 'JetBrains Mono', monospace;
+	  	}
+
+	  	.start-game:hover {
+	  		background: rgba($primary-color, 0.5);
+	  		animation: fadeOutPrimary 0.5s;
+	  	}
+
+	  	.playing {
+	  		display: grid;
+	  		grid-column: 1 / span 4;
+	  		grid-row: 1 / span 6;
+	  		grid-template-columns: 1fr 1fr 1fr 1fr;
+	  		grid-template-rows: 1fr 1fr .5fr .5fr .5fr 20px;
+
+	  		.timer {
+	  			grid-column: 4 / span 1;
+	  			grid-row: 1 / span 1;
+	  			align-self: center;
+	  			justify-self: center;
+
+	  			font-family: 'JetBrains Mono', monospace;
+	  			color: white;
+	  			background: $primary-color;
+
+	  			width: 25px;
+	  			height: 25px;
+	  		}
+
+	  		.image {
+	  			grid-column: 2 / span 2;
+	  			grid-row: 1 / span 2;
+	  			align-self: center;
+	  			justify-self: center;
+
+	  			width: 150px;
+	  			height: 150px;
+	  		}
+
+	  		.question {
+	  			grid-column: 2 / span 2;
+	  			grid-row: 3 / span 1;
+	  			align-self: center;
+	  			justify-self: center;
+	  		}
+
+	  		.choice-container {
+	  			display: grid;
+	  			grid-column: 1 / span 4;
+	  			grid-row: 1 / span 6;
+	  			grid-template-columns: 1fr 1fr 1fr 1fr;
+	  			grid-template-rows: 1fr 1fr .5fr .5fr .5fr 20px;
+	  			gap: 0px 10px;
+	  		}
+
+	  		.choice {
+	  			align-self: center;
+	  			width: 80%;
+	  			height: 80%;
+
+	  			font-family: 'Lato', sans-serif;
+	  			color: white;
+	  			border: none;
+	  			border-radius: 10px;
+	  			cursor: pointer;
+
+	  		}
+
+	  		.choice:nth-child(1) {
+	  			grid-column: 1 / span 2;
+	  			grid-row: 4 / span 1;
+	  			justify-self: end;
+
+	  			background: $choice-1-color;
+
+	  			&:hover {
+	  				background: rgba($choice-1-color, 0.5);
+	  				animation: fadeOutChoice1 0.5s;
+	  			}
+	  		}
+
+	  		.choice:nth-child(2) {
+	  			grid-column: 3 / span 2;
+	  			grid-row: 4 / span 1;
+	  			justify-self: start;
+
+	  			background: $choice-2-color;
+
+	  			&:hover {
+	  				background: rgba($choice-2-color, 0.5);
+	  				animation: fadeOutChoice2 0.5s;
+	  			}
+	  		}
+
+	  		.choice:nth-child(3) {
+	  			grid-column: 1 / span 2;
+	  			grid-row: 5 / span 1;
+	  			justify-self: end;
+
+	  			background: $choice-3-color;
+
+	  			&:hover {
+	  				background: rgba($choice-3-color, 0.5);
+	  				animation: fadeOutChoice3 0.5s;
+	  			}
+	  		}
+
+	  		.choice:nth-child(4) {
+	  			grid-column: 3 / span 2;
+	  			grid-row: 5 / span 1;
+	  			justify-self: start;
+
+	  			background: $choice-4-color;
+
+	  			&:hover {
+	  				background: rgba($choice-4-color, 0.5);
+	  				animation: fadeOutChoice4 0.5s;
+	  			}
+	  		}
+
+	  	}
 	}
 
 	.game-id {
@@ -205,7 +356,7 @@ html {
 
 	.game-id:hover {
 		background: rgba($primary-color, 0.5);
-		animation: fadeOut 0.5s;
+		animation: fadeOutPrimary 0.5s;
 	}
 
 	.Player-Container {
@@ -269,10 +420,18 @@ html {
 	}
 }
 
-@keyframes fadeOut {
-	from { background: rgba($primary-color, 1) }
-	to { background: rgba($primary-color, 0.5) }
+@mixin fadeOut($name, $color) {
+	@keyframes #{$name} {
+		from { background: rgba($color, 1) }
+		to { background: rgba($color, 0.5) }
+	}
 }
+
+@include fadeOut(fadeOutPrimary, $primary-color);
+@include fadeOut(fadeOutChoice1, $choice-1-color);
+@include fadeOut(fadeOutChoice2, $choice-2-color);
+@include fadeOut(fadeOutChoice3, $choice-3-color);
+@include fadeOut(fadeOutChoice4, $choice-4-color);
 
 /* The typing effect */
 @keyframes typing {

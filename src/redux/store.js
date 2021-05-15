@@ -18,7 +18,7 @@ const initialState = {
 	//host: '',
 	//players: [],
 	question: {},
-	timeLeft: 10,
+	timeLeft: 120,
 	answered: false
 };
 
@@ -59,7 +59,7 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				question: action.question,
-				timeLeft: 10,
+				timeLeft: 120,
 				answered: false
 			}
 

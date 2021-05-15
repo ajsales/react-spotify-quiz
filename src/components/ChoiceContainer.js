@@ -44,5 +44,5 @@ export default function ChoiceContainer() {
 		);
 	});
 
-	return <div>{choiceList}</div>
+	return <div className="choice-container">{choiceList}</div>
 }

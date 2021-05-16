@@ -4,7 +4,7 @@ import { navigate } from '@reach/router';
 
 // Redux packages
 import { useSelector, useDispatch } from 'react-redux';
-import { setSocket } from '../redux/actionCreators';
+import { setSocket, setPlayerId } from '../redux/actionCreators';
 
 // Media import
 import spotifyLogo from '../media/spotify-logo.png';
@@ -12,7 +12,7 @@ import spotifyLogo from '../media/spotify-logo.png';
 /**
  * Rooms page.
  */
-export default function Rooms() {
+export default function Rooms(props) {
 
 	const socket = useSelector(state => state.socket);
 	const playerId = useSelector(state => state.playerId);
@@ -20,6 +20,12 @@ export default function Rooms() {
 
 	const [ availableRooms, setAvailableRooms ] = useState([]);
 	const [ roomId, setRoomId ] = useState('');
+
+	const redirectToHome = () => {
+		navigate('/', {state: {
+			message: 'You must re-login!'
+		}});
+	}
 
 	// Handles change within Room ID input form
 	const handleChange = (event) => {
@@ -65,10 +71,35 @@ export default function Rooms() {
 			console.log('Available rooms: ', rooms);
 		});
 
+		socket.on('redirectToHome', () => {
+			redirectToHome();
+		})
+
 		return () => {
 			socket.off('availableRooms');
+			socket.off('redirectToHome');
 		};
 	}, [socket]);
+
+	const locationState = props.location.state;
+
+	useEffect(() => {
+		if (locationState) {
+			const message = locationState.message;
+			if (message !== undefined) {
+				alert(message);
+			}
+		}
+	}, [locationState])
+
+	if (playerId.length === 0) {
+		const savedPlayerId = localStorage.getItem('playerId');
+		if (savedPlayerId === null) {
+			redirectToHome();
+		} else {
+			dispatch(setPlayerId(savedPlayerId));
+		}
+	}
 
 	return (
 		<div className="Rooms" >

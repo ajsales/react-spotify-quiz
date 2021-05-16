@@ -7,6 +7,7 @@ import ReactTooltip from 'react-tooltip';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSocket, setPlayerId, setGameId } from '../redux/actionCreators';
 
+// Components
 import Game from './Game';
 import PlayerContainer from './PlayerContainer';
 
@@ -26,6 +27,12 @@ export default function GameContainer(props) {
 		}});
 	}
 
+	const redirectToRooms = () => {
+		navigate('/rooms', {state: {
+			message: 'Room does not exist!'
+		}});
+	}
+
 	// Sets socket namespace for page
 	useEffect(() => {
 		dispatch(setGameId(props.gameId));
@@ -36,6 +43,8 @@ export default function GameContainer(props) {
 	useEffect(() => {
 		if (playerId.length > 0) {
 			socket.emit('joinGame', playerId, (response) => {
+
+				// If player data couldn't be found on server
 				if (response) {
 					redirectToHome();
 				}
@@ -44,10 +53,20 @@ export default function GameContainer(props) {
 		}
 	}, [socket, playerId]);
 
+	useEffect(() => {
+		socket.on('redirectToRooms', () => {
+			redirectToRooms();
+		})
+
+		return () => {
+			socket.off('redirectToRooms');
+		}
+	}, [socket])
+
+	// For refreshes
 	if (playerId.length === 0) {
 		const savedPlayerId = localStorage.getItem('playerId');
 		if (savedPlayerId === null) {
-			console.log('should be doing this');
 			redirectToHome();
 		} else {
 			dispatch(setPlayerId(savedPlayerId));

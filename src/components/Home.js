@@ -22,7 +22,7 @@ export default function Home(props) {
 	useEffect(() => {
 		if (locationState) {
 			const message = locationState.message;
-			if (message.length > 0) {
+			if (message !== undefined) {
 				alert(message);
 			}
 		}

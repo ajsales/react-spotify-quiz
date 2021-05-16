@@ -166,8 +166,12 @@ const pruneArtistData = (artist) => {
 	 * @property {string} name Name of artist
 	 * @property {Object} songs All-time Top 10 songs of artist
 	 */
+	const img = artist.images
+		? artist.images[0].url,
+		: 'https://img.icons8.com/clouds/200/000000/spotify.png'
+
 	return {
-		img: artist.images[0].url,
+		img,
 		name: artist.name,
 		songs: artist.songs.map((song) => pruneSongData(song))
 	};

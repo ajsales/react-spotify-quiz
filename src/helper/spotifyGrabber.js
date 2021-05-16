@@ -83,13 +83,21 @@ const grabArtists = async (spotify) => {
 	let response = await spotify.getMyTopArtists({limit: 10, time_range: 'short_term'})
 	artists.recent = await Promise.all(response.items.map(async (artist) => {
 		response = await spotify.getArtistTopTracks(artist.id, 'US');
-		return pruneArtistData({...artist, songs: response.tracks.slice(0, 5)});
+		if (response.tracks.length > 0) {
+			return pruneArtistData({...artist, songs: response.tracks.slice(0, 5)});
+		} else {
+			return pruneArtistData({...artist, songs: []});
+		}
 	}));
 
 	response = await spotify.getMyTopArtists({limit: 10, time_range: 'long_term'})
 	artists.allTime = await Promise.all(response.items.map(async (artist) => {
 		response = await spotify.getArtistTopTracks(artist.id, 'US');
-		return pruneArtistData({...artist, songs: response.tracks.slice(0, 5)});
+		if (response.tracks.length > 0) {
+			return pruneArtistData({...artist, songs: response.tracks.slice(0, 5)});
+		} else {
+			return pruneArtistData({...artist, songs: []});
+		}
 	}));
 
 	/**

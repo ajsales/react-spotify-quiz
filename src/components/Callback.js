@@ -39,6 +39,7 @@ export default function Callback() {
 			});
 
 			dispatch(setPlayerId(player.id));
+			localStorage.setItem('playerId', player.id);
 		}
 
 		// Grabs token for URL hash

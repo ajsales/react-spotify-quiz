@@ -1,5 +1,5 @@
 // React packages
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // Spotify API request helper
 import spotifyRequestUrl from '../helper/spotifyRequestUrl';
@@ -10,12 +10,23 @@ import spotifyLogo from '../media/spotify-logo.png';
 /**
  * Home page.
  */
-export default function Home() {
+export default function Home(props) {
 
 	// Redirects user for Spotify API token request
 	const handleClick = () => {
 		window.location.href = spotifyRequestUrl;
 	}
+
+	const locationState = props.location.state;
+
+	useEffect(() => {
+		if (locationState) {
+			const message = locationState.message;
+			if (message.length > 0) {
+				alert(message);
+			}
+		}
+	}, [locationState])
 
 	return (
 		<div className="Home">

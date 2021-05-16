@@ -43,7 +43,7 @@ const grabProfile = async (spotify) => {
 	return {
 		name: response.display_name,
 		id: response.id,
-		img: response.images
+		img: response.images && response.images.length > 0
 			? response.images[0].url
 			: 'https://img.icons8.com/clouds/200/000000/spotify.png'
 	}
@@ -145,7 +145,7 @@ const pruneSongData = (song) => {
 	 * @property {string} preview URL of 30-second song preview
 	 */
 
-	const img = song.album.images
+	const img = song.album.images && song.album.images.length > 0
 		? song.album.images[0].url
 		: 'https://img.icons8.com/clouds/200/000000/spotify.png';
 
@@ -171,7 +171,7 @@ const pruneArtistData = (artist) => {
 	 * @property {string} name Name of artist
 	 * @property {Object} songs All-time Top 10 songs of artist
 	 */
-	const img = artist.images
+	const img = artist.images && artist.images.length > 0
 		? artist.images[0].url
 		: 'https://img.icons8.com/clouds/200/000000/spotify.png';
 

@@ -15,8 +15,8 @@ const initialState = {
 	socket: io(server),
 	playerId: '',
 	gameId: '',
-	//host: '',
-	//players: [],
+	host: false,
+	started: false,
 	question: {},
 	timeLeft: 30,
 	answered: false
@@ -46,13 +46,13 @@ const reducer = (state = initialState, action) => {
 		case 'host/set':
 			return {
 				...state,
-				host: action.host
+				host: action.boolean
 			}
 
-		case 'players/set':
+		case 'started/set':
 			return {
 				...state,
-				players: action.players
+				started: action.boolean
 			}
 
 		case 'question/set':

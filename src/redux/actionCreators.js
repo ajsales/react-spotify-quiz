@@ -33,17 +33,17 @@ export const setGameId = (gameId) => {
 	};
 };
 
-export const setHost = (host) => {
+export const setHost = (boolean) => {
 	return {
 		type: 'host/set',
-		host
+		boolean
 	};
 };
 
-export const setPlayers = (players) => {
+export const setStarted = (boolean) => {
 	return {
-		type: 'players/set',
-		players
+		type: 'started/set',
+		boolean
 	};
 };
 

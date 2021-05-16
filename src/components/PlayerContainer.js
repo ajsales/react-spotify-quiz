@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setHost } from '../redux/actionCreators';
 
 export default function PlayerContainer() {
 
 	const socket = useSelector(state => state.socket);
+	const playerId = useSelector(state => state.playerId);
+	const dispatch = useDispatch();
 
 	const [ players, setPlayers] = useState([]);
 
@@ -13,13 +16,18 @@ export default function PlayerContainer() {
 
 		// Server message to update players
 		// (new player added, player left, points added, etc.)
-		socket.on('currentPlayers', (currentPlayers) => {
+		socket.on('currentPlayers', (currentPlayers, host) => {
 			setPlayers(currentPlayers);
+			dispatch(setHost(playerId === host));
 		});
 
-	}, [socket])
+	}, [socket, dispatch, playerId])
 
-	const result = players.map(player => {
+	let result = [...players].sort((p1, p2) => {
+		return p1.points - p2.points;
+	});
+
+	result = result.map(player => {
 		return (<Player
 			img={player.img}
 			name={player.name}

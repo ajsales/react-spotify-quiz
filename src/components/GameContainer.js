@@ -5,7 +5,8 @@ import ReactTooltip from 'react-tooltip';
 
 // Redux pages
 import { useSelector, useDispatch } from 'react-redux';
-import { setSocket, setPlayerId, setGameId } from '../redux/actionCreators';
+import { setSocket, setPlayerId,
+	setGameId, setStarted } from '../redux/actionCreators';
 
 // Components
 import Game from './Game';
@@ -45,13 +46,16 @@ export default function GameContainer(props) {
 			socket.emit('joinGame', playerId, (response) => {
 
 				// If player data couldn't be found on server
-				if (response) {
+				if (response === 'You must re-login!') {
 					redirectToHome();
+				} else if (response) {
+					dispatch(setStarted(true));
 				}
+
 				console.log('You joined the game!');
 			});
 		}
-	}, [socket, playerId]);
+	}, [socket, playerId, dispatch]);
 
 	useEffect(() => {
 		socket.on('redirectToRooms', () => {

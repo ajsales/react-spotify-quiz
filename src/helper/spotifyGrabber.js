@@ -144,8 +144,13 @@ const pruneSongData = (song) => {
 	 * @property {string} toString Title+artists (used later for equality checks)
 	 * @property {string} preview URL of 30-second song preview
 	 */
+
+	const img = song.album.images
+		? song.album.images[0].url
+		: 'https://img.icons8.com/clouds/200/000000/spotify.png';
+
 	const trackObj = {
-		img: song.album.images[0].url,
+		img,
 		title: song.name,
 		artists: artists.join(', '),
 		toString: song.name + ' by ' + artists.join(', '),
@@ -167,8 +172,8 @@ const pruneArtistData = (artist) => {
 	 * @property {Object} songs All-time Top 10 songs of artist
 	 */
 	const img = artist.images
-		? artist.images[0].url,
-		: 'https://img.icons8.com/clouds/200/000000/spotify.png'
+		? artist.images[0].url
+		: 'https://img.icons8.com/clouds/200/000000/spotify.png';
 
 	return {
 		img,

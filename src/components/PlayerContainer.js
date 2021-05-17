@@ -24,7 +24,7 @@ export default function PlayerContainer() {
 	}, [socket, dispatch, playerId])
 
 	let result = [...players].sort((p1, p2) => {
-		return p1.points - p2.points;
+		return p2.points - p1.points;
 	});
 
 	result = result.map(player => {

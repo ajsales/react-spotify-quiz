@@ -35,7 +35,7 @@ const grabSpotifyData = async (token) => {
 const grabProfile = async (spotify) => {
 	let response = await spotify.getMe();
 
-	const img = response?.images?.[0].url
+	const img = response?.images?.[0]?.url
 		?? 'https://img.icons8.com/clouds/200/000000/spotify.png';
 
 	/**
@@ -165,7 +165,7 @@ const pruneSongData = (song) => {
 	 * @property {string} preview URL of 30-second song preview
 	 */
 
-	const img = song?.album?.images?.[0].url
+	const img = song?.album?.images?.[0]?.url
 		?? 'https://img.icons8.com/clouds/200/000000/spotify.png';
 
 	const trackObj = {
@@ -191,7 +191,7 @@ const pruneArtistData = (artist) => {
 	 * @property {Object} songs All-time Top 10 songs of artist
 	 */
 
-	const img = artist?.images?.[0].url
+	const img = artist?.images?.[0]?.url
 		?? 'https://img.icons8.com/clouds/200/000000/spotify.png';
 
 	let songs = artist.songs.map((song) => pruneSongData(song));

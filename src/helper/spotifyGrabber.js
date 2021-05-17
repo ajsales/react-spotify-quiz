@@ -35,6 +35,9 @@ const grabSpotifyData = async (token) => {
 const grabProfile = async (spotify) => {
 	let response = await spotify.getMe();
 
+	const img = response?.images?.[0].url
+		?? 'https://img.icons8.com/clouds/200/000000/spotify.png';
+
 	/**
 	 * @property {string} name Player's name
 	 * @property {string} id Player's Spotify ID
@@ -43,9 +46,7 @@ const grabProfile = async (spotify) => {
 	return {
 		name: response.display_name,
 		id: response.id,
-		img: response.images && response.images.length > 0
-			? response.images[0].url
-			: 'https://img.icons8.com/clouds/200/000000/spotify.png'
+		img
 	}
 };
 
@@ -62,6 +63,9 @@ const grabSongs = async (spotify) => {
 
 	response = await spotify.getMyTopTracks({limit: 10, time_range: 'long_term'});
 	songs.allTime = response.items.map((song) => pruneSongData(song));
+
+	songs.recent = songs.recent.filter(song => song.title !== undefined);
+	songs.allTime = songs.allTime.filter(song => song.title !== undefined);
 
 	/**
 	 * @property {Object[]} recent Player's recent Top 10 songs (within the past 2 weeks)
@@ -89,6 +93,10 @@ const grabArtists = async (spotify) => {
 			return pruneArtistData({...artist, songs: []});
 		}
 	}));
+	artists.recent = artists.recent.filter(artist => {
+		return artist.name !== undefined
+			&& artist.songs.length > 0;
+	});
 
 	response = await spotify.getMyTopArtists({limit: 10, time_range: 'long_term'})
 	artists.allTime = await Promise.all(response.items.map(async (artist) => {
@@ -99,6 +107,10 @@ const grabArtists = async (spotify) => {
 			return pruneArtistData({...artist, songs: []});
 		}
 	}));
+	artists.allTime = artists.allTime.filter(artist => {
+		return artist.name !== undefined
+			&& artist.songs.length > 0;
+	});
 
 	/**
 	 * @property {Object[]} recent Player's recent Top 10 artists (within the past 2 weeks)
@@ -153,9 +165,8 @@ const pruneSongData = (song) => {
 	 * @property {string} preview URL of 30-second song preview
 	 */
 
-	const img = song.album.images && song.album.images.length > 0
-		? song.album.images[0].url
-		: 'https://img.icons8.com/clouds/200/000000/spotify.png';
+	const img = song?.album?.images?.[0].url
+		?? 'https://img.icons8.com/clouds/200/000000/spotify.png';
 
 	const trackObj = {
 		img,
@@ -179,14 +190,17 @@ const pruneArtistData = (artist) => {
 	 * @property {string} name Name of artist
 	 * @property {Object} songs All-time Top 10 songs of artist
 	 */
-	const img = artist.images && artist.images.length > 0
-		? artist.images[0].url
-		: 'https://img.icons8.com/clouds/200/000000/spotify.png';
+
+	const img = artist?.images?.[0].url
+		?? 'https://img.icons8.com/clouds/200/000000/spotify.png';
+
+	let songs = artist.songs.map((song) => pruneSongData(song));
+	songs = songs.filter(song => song.title !== undefined);
 
 	return {
 		img,
 		name: artist.name,
-		songs: artist.songs.map((song) => pruneSongData(song))
+		songs
 	};
 }
 

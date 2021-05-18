@@ -12,14 +12,14 @@ const server = process.env.NODE_ENV === 'production'
 
 // Initial Redux state for application
 const initialState = {
-	socket: io(server),
-	playerId: '',
-	gameId: '',
-	host: false,
-	started: false,
-	question: {},
-	timeLeft: 30,
-	answered: false
+	socket: io(server), // Current socket namespace
+	playerId: '', 		// Player's Spotify ID
+	gameId: '', 		// ID of the game currently joined
+	host: false, 		// True, if player is the host
+	started: false, 	// True, if joined game after it has already started
+	question: {},		// Current question object to be displayed
+	timeLeft: 30,		// Time left to answer the current question
+	answered: false		// True, if current question has been answered
 };
 
 // Reducer for Redux store

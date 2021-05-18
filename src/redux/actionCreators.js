@@ -26,6 +26,11 @@ export const setPlayerId = (playerId) => {
 	};
 };
 
+/**
+ * Sets game ID when joining a room/game.
+ *
+ * @param {string} gameId
+ */
 export const setGameId = (gameId) => {
 	return {
 		type: 'gameId/set',
@@ -33,6 +38,13 @@ export const setGameId = (gameId) => {
 	};
 };
 
+
+/**
+ * Sets host to true to give host capabilities
+ * to player if host (i.e. starting game).
+ *
+ * @param {boolean} boolean
+ */
 export const setHost = (boolean) => {
 	return {
 		type: 'host/set',
@@ -40,6 +52,13 @@ export const setHost = (boolean) => {
 	};
 };
 
+
+/**
+ * Sets started to true if joining game
+ * after it has already started
+ *
+ * @param {boolean} boolean
+ */
 export const setStarted = (boolean) => {
 	return {
 		type: 'started/set',
@@ -47,6 +66,12 @@ export const setStarted = (boolean) => {
 	};
 };
 
+/**
+ * Sets current question to display during
+ * the game.
+ *
+ * @param {Object} question
+ */
 export const setQuestion = (question) => {
 	return {
 		type: 'question/set',
@@ -54,12 +79,22 @@ export const setQuestion = (question) => {
 	};
 };
 
+/**
+ * Decrements time left for the question
+ * by 1 second.
+ */
 export const decrementTimeLeft = () => {
 	return {
 		type: 'timeLeft/decrement',
 	}
 };
 
+/**
+ * Sets answered to true if current question
+ * has been answered.
+ *
+ * @param {boolean} boolean
+ */
 export const setAnswered = (boolean) => {
 	return {
 		type: 'answered/set',

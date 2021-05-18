@@ -1,13 +1,19 @@
+// React packages
 import React, { useState, useEffect } from 'react';
 
+// Redux packages
 import { useSelector, useDispatch } from 'react-redux';
 import { setQuestion, setStarted } from '../redux/actionCreators';
 
+// Components
 import Timer from './Timer';
 import Question from './Question';
 import ChoiceContainer from './ChoiceContainer';
 import AudioPlayer from './AudioPlayer';
 
+/**
+ * Main game component on Game page.
+ */
 export default function Game() {
 	
 	const socket = useSelector(state => state.socket);
@@ -90,6 +96,7 @@ export default function Game() {
 		);
 	} else if (started) {
 
+		// Player joined in the middle of a game
 		result = (
 			<button className="start-game" disabled>
 				In the middle of a question! Please wait.

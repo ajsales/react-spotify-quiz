@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { navigate } from '@reach/router';
 import ReactTooltip from 'react-tooltip';
 
-// Redux pages
+// Redux packages
 import { useSelector, useDispatch } from 'react-redux';
 import { setSocket, setPlayerId,
 	setGameId, setStarted } from '../redux/actionCreators';
@@ -22,12 +22,14 @@ export default function GameContainer(props) {
 	const gameId = useSelector(state => state.gameId);
 	const dispatch = useDispatch();
 
+	// Redirects to Home page
 	const redirectToHome = () => {
 		navigate('/', {state: {
 			message: 'You must re-login!'
 		}});
 	}
 
+	// Redirects to Rooms page
 	const redirectToRooms = () => {
 		navigate('/rooms', {state: {
 			message: 'Room does not exist!'
@@ -57,7 +59,10 @@ export default function GameContainer(props) {
 		}
 	}, [socket, playerId, dispatch]);
 
+	// Socket listeners
 	useEffect(() => {
+
+		// Server message to redirect to Rooms page
 		socket.on('redirectToRooms', () => {
 			redirectToRooms();
 		})
@@ -67,7 +72,8 @@ export default function GameContainer(props) {
 		}
 	}, [socket])
 
-	// For refreshes
+	// Grabs a locally saved player ID if not currently
+	// in Redux (in case of page refreshes); refreshes if none
 	if (playerId.length === 0) {
 		const savedPlayerId = localStorage.getItem('playerId');
 		if (savedPlayerId === null) {

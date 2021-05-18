@@ -1,7 +1,10 @@
+// React packages
 import React from 'react';
 
+// Redux packages
 import { useSelector } from 'react-redux';
 
+// Helper function
 import reactStringReplace from 'react-string-replace';
 
 export default function Question() {

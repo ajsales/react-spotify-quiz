@@ -1,8 +1,13 @@
+// React packages
 import React, { useState, useEffect } from 'react';
 
+// Redux packages
 import { useSelector, useDispatch } from 'react-redux';
 import { setHost } from '../redux/actionCreators';
 
+/**
+ * Component that holds all players in current game. 
+ */
 export default function PlayerContainer() {
 
 	const socket = useSelector(state => state.socket);
@@ -23,6 +28,7 @@ export default function PlayerContainer() {
 
 	}, [socket, dispatch, playerId])
 
+	// Sorts players by points (highest at top)
 	let result = [...players].sort((p1, p2) => {
 		return p2.points - p1.points;
 	});

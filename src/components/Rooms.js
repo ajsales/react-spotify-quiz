@@ -21,6 +21,7 @@ export default function Rooms(props) {
 	const [ availableRooms, setAvailableRooms ] = useState([]);
 	const [ roomId, setRoomId ] = useState('');
 
+	// Redirects to Home page
 	const redirectToHome = () => {
 		navigate('/', {state: {
 			message: 'You must re-login!'
@@ -83,6 +84,8 @@ export default function Rooms(props) {
 
 	const locationState = props.location.state;
 
+	// Checks if redirected here;
+	// if so, sends an alert message
 	useEffect(() => {
 		if (locationState) {
 			const message = locationState.message;
@@ -92,6 +95,8 @@ export default function Rooms(props) {
 		}
 	}, [locationState])
 
+	// Grabs a locally saved player ID if not currently
+	// in Redux (in case of page refreshes); refreshes if none
 	if (playerId.length === 0) {
 		const savedPlayerId = localStorage.getItem('playerId');
 		if (savedPlayerId === null) {

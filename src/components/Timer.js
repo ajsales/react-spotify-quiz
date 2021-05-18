@@ -1,9 +1,14 @@
+// React packages
 import React, { useEffect, useRef } from 'react';
 
+// Redux packages
 import { useSelector, useDispatch } from 'react-redux';
 import { decrementTimeLeft } from '../redux/actionCreators';
 
-export default function Time() {
+/**
+ * Timer component.
+ */
+export default function Timer() {
 
 	const socket = useSelector(state => state.socket);
 	const answered = useSelector(state => state.answered);

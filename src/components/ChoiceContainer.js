@@ -1,8 +1,11 @@
+// React packages
 import React, { useEffect } from 'react';
 
+// Redux packages
 import { useSelector, useDispatch } from 'react-redux';
 import { setAnswered } from '../redux/actionCreators';
 
+// Media imports
 import correctAnswer from '../media/correct-answer.wav';
 import wrongAnswer from '../media/wrong-answer.wav';
 

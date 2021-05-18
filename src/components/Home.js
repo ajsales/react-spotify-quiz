@@ -19,6 +19,8 @@ export default function Home(props) {
 
 	const locationState = props.location.state;
 
+	// Checks to see if redirected to Home page;
+	// if so, sends an alert message
 	useEffect(() => {
 		if (locationState) {
 			const message = locationState.message;

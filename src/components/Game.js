@@ -29,7 +29,8 @@ export default function Game() {
 	// Socket sends request for server to send a question
 	const startGame = () => {
 		socket.emit('startGame');
-		console.log('Game starts!');
+		setIsPlaying(true);
+		setIsLoadingQuestion(true);
 	};
 
 	//Socket listeners
@@ -37,8 +38,8 @@ export default function Game() {
 
 		// Server sends a new question
 		socket.on('newQuestion', (questionObject) => {
-			console.log('New question');
 			if (!isPlaying) {
+				console.log('Game starts!');
 				setIsPlaying(true);
 			}
 			if (!started) {
@@ -48,6 +49,7 @@ export default function Game() {
 
 			// Gives player a moment to notice that there's a new question
 			setTimeout(() => {
+				console.log('New question!');
 				dispatch(setQuestion(questionObject));
 				setIsLoadingQuestion(false);
 			}, 3000);
@@ -62,6 +64,7 @@ export default function Game() {
 
 		return () => {
 			socket.off('newQuestion');
+			socket.off('endGame');
 		};
 	}, [socket, dispatch, isPlaying, started]);
 

@@ -18,7 +18,7 @@ export default function AudioPlayer() {
 
 	const audio = useRef(null);
 
-	const playSong = (url) => {
+	const playSong = (url, title) => {
 		// Pauses current audio if not already.
 		if (audio.current) {
 			audio.current.pause();
@@ -29,11 +29,13 @@ export default function AudioPlayer() {
 		let newAudio;
 		if (url.length > 0) {
 			newAudio = new Audio(url);
+			console.log('Now playing:', title);
 		} else {
 
 			// Sets audio to generic background music
 			// if url is invalid
 			newAudio = new Audio(timerAudio);
+			console.log('Now playing: generic background music');
 		}
 
 		newAudio.play();
@@ -49,7 +51,7 @@ export default function AudioPlayer() {
 
 		// Plays song when question is given
 		if (song && !answered) {
-			playSong(song.preview);
+			playSong(song.preview, song.toString);
 		}
 	}, [answered, song])
 

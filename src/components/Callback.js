@@ -30,9 +30,6 @@ export default function Callback() {
 		// Moved async part to within the useEffect 
 		const fetchSpotifyData = async (token) => {
 			const { player, top50 } = await grabSpotifyData(token);
-			console.log(player);
-			console.log(top50);
-
 			// Socket sends data to server
 			socket.emit('newPlayer', player, top50, () => {
 

@@ -69,7 +69,6 @@ export default function Rooms(props) {
 		// Server sends the list of available rooms
 		socket.on('availableRooms', (rooms) => {
 			setAvailableRooms(rooms);
-			console.log('Available rooms: ', rooms);
 		});
 
 		socket.on('redirectToHome', () => {

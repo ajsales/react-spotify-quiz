@@ -5,17 +5,18 @@ import ReactTooltip from 'react-tooltip';
 
 // Redux packages
 import { useSelector, useDispatch } from 'react-redux';
-import { setSocket, setPlayerId,
-	setGameId, setStarted } from '../redux/actionCreators';
+import { setSocket, setGameId, setStarted } from '../redux/actionCreators';
 
 // Components
 import Game from './Game';
 import PlayerContainer from './PlayerContainer';
 
+import withRedirect from './withRedirect';
+
 /**
  * Games page. 
  */
-export default function GameContainer(props) {
+function GameContainer(props) {
 
 	const socket = useSelector(state => state.socket);
 	const playerId = useSelector(state => state.playerId);
@@ -74,6 +75,7 @@ export default function GameContainer(props) {
 
 	// Grabs a locally saved player ID if not currently
 	// in Redux (in case of page refreshes); refreshes if none
+	/*
 	if (playerId.length === 0) {
 		const savedPlayerId = localStorage.getItem('playerId');
 		if (savedPlayerId === null) {
@@ -82,6 +84,7 @@ export default function GameContainer(props) {
 			dispatch(setPlayerId(savedPlayerId));
 		}
 	}
+	*/
 
 	return (
 		<div className="Game-Container">
@@ -100,3 +103,5 @@ export default function GameContainer(props) {
 
 	
 }
+
+export default withRedirect(GameContainer);

@@ -17,7 +17,7 @@ export default function Home(props) {
 		window.location.href = spotifyRequestUrl;
 	}
 
-	const locationState = props.location.state;
+	const locationState = props?.location?.state;
 
 	// Checks to see if redirected to Home page;
 	// if so, sends an alert message

@@ -4,15 +4,17 @@ import { navigate } from '@reach/router';
 
 // Redux packages
 import { useSelector, useDispatch } from 'react-redux';
-import { setSocket, setPlayerId } from '../redux/actionCreators';
+import { setSocket } from '../redux/actionCreators';
 
 // Media import
 import spotifyLogo from '../media/spotify-logo.png';
 
+import withRedirect from './withRedirect';
+
 /**
  * Rooms page.
  */
-export default function Rooms(props) {
+function Rooms(props) {
 
 	const socket = useSelector(state => state.socket);
 	const playerId = useSelector(state => state.playerId);
@@ -81,7 +83,7 @@ export default function Rooms(props) {
 		};
 	}, [socket]);
 
-	const locationState = props.location.state;
+	const locationState = props?.location?.state;
 
 	// Checks if redirected here;
 	// if so, sends an alert message
@@ -96,6 +98,7 @@ export default function Rooms(props) {
 
 	// Grabs a locally saved player ID if not currently
 	// in Redux (in case of page refreshes); refreshes if none
+	/*
 	if (playerId.length === 0) {
 		const savedPlayerId = localStorage.getItem('playerId');
 		if (savedPlayerId === null) {
@@ -104,6 +107,7 @@ export default function Rooms(props) {
 			dispatch(setPlayerId(savedPlayerId));
 		}
 	}
+	*/
 
 	return (
 		<div className="Rooms" >
@@ -126,3 +130,5 @@ export default function Rooms(props) {
 		</div>
 	);
 }
+
+export default withRedirect(Rooms);
